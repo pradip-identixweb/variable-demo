@@ -1,30 +1,18 @@
-name: CI/CD Pipeline
+name: Deploy Website
 
 on:
   push:
     branches:
-      - main
+      - main  # Change this to match your repository's main branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install  # Modify this based on your project's build requirements
-
-      - name: Run tests
-        run: npm test  # Modify this based on your testing framework
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to server
-        # Add your deployment script here
-        run: |
-          ssh user@server "cd /path/to/project && git pull origin main && npm install && npm run build"
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy changes
+      run: |
+        cp index.html /var/www/html/
