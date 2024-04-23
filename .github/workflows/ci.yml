@@ -7,12 +7,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Deploy changes
-      run: |
-        cp index.html /var/www/html/
+      - name: Deploy changes
+        run: |
+          sudo cp index.html /var/www/html/
+          sudo systemctl restart nginx
+
