@@ -7,11 +7,15 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: 
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name : copy credential 
+        run: | 
+            
 
       - name: Deploy changes
         run: |
