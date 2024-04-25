@@ -3,7 +3,7 @@ name: Deploy Website
 on:
   push:
     branches:
-      - main  # Change this to match your repository's main branch
+      - main
 
 jobs:
   deploy:
@@ -14,22 +14,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up credentials
-         run: |
-          
-          cat << EOF > /var/www/html/test-cicd/git_creds/Variable.js
-          ${{ vars.ACCESS_VARIABLE }}
-          EOF
-          
-      
+        run: |
+          echo "${{ secrets.ACCESS_VARIABLE }}" > /var/www/html/test-cicd/Variable.js
 
       - name: Copy website files to production server
         run: |
-          scp -r index.html /var/www/html/
+          scp -r index.html :/var/www/html/
 
-         
-          
       - name: Restart NGINX on production server
         run: 'sudo systemctl restart nginx'
+
             
 
 
