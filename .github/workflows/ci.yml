@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: 
+    runs-on: pradip-hosted
 
     steps:
       - name: Checkout code
