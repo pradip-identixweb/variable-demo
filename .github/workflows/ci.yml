@@ -13,8 +13,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name : copy credential 
-        run: | 
+      - name: Set up credentials
+        # run: |
+        #   scp '${{ vars.LIVE_CREDENTIAL_CONFIG }}' /var/www/html/test-cicd/git_creds/credentials.js
+        run: |
+          
+          cat << EOF > /var/www/html/test-cicd/git_creds/credentials.js
+          ${{ vars.LIVE_CREDENTIAL_CONFIG }}
+          EOF
+          
+      # - name: remove curly bracket
+      #   run: |
+      #      sed -i 's/{//g; s/}//g' /var/www/html/test-cicd/git_creds/credentials.js
+
+      - name: Copy website files to production server
+        run: |
+          scp -r index.html /var/www/html/
+
+          # Copy live_credential_config to git_creds directory
+          #scp ${ LIVE_CREDENTIAL_CONFIG } /var/www/html/test-cicd/git_creds/credentials.js
+          
+      - name: Restart NGINX on production server
+        run: 'sudo systemctl restart nginx'
             
 
       - name: Deploy changes
