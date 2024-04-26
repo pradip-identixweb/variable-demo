@@ -17,7 +17,7 @@ jobs:
         run: |
           
           cat << EOF > /var/www/html/test-cicd/git_creds/credentials.js
-          ${{ vars.LIVE_CREDENTIAL_CONFIG }}
+          ${{ vars.ACCESS_VARIABLE }}
           EOF
           
     
@@ -27,7 +27,7 @@ jobs:
           scp -r index.html /var/www/html/
 
           # Copy live_credential_config to git_creds directory
-          #scp ${ LIVE_CREDENTIAL_CONFIG } /var/www/html/test-cicd/git_creds/credentials.js
+          #scp ${ ACCESS_VARIABLE } /var/www/html/test-cicd/git_creds/credentials.js
           
       - name: Restart NGINX on production server
         run: 'sudo systemctl restart nginx'
