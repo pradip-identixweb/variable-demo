@@ -26,8 +26,7 @@ jobs:
         run: |
           scp -r index.html /var/www/html/
 
-          # Copy live_credential_config to git_creds directory
-          #scp ${ ACCESS_VARIABLE } /var/www/html/test-cicd/git_creds/credentials.js
+          
           
       - name: Restart NGINX on production server
         run: 'sudo systemctl restart nginx'
