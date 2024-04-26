@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy to Production
 
 on:
   push:
@@ -6,21 +6,29 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy_production:
     runs-on: pradip-hosted
-
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
 
       - name: Set up credentials
+       
         run: |
-          echo "${{ secrets.ACCESS_VARIABLE }}" > /var/www/html/test-cicd/Variable.js
+          
+          cat << EOF > /var/www/html/test-cicd/git_creds/credentials.js
+          ${{ vars.LIVE_CREDENTIAL_CONFIG }}
+          EOF
+          
+    
 
       - name: Copy website files to production server
         run: |
-          scp -r index.html :/var/www/html/
+          scp -r index.html /var/www/html/
 
+          # Copy live_credential_config to git_creds directory
+          #scp ${ LIVE_CREDENTIAL_CONFIG } /var/www/html/test-cicd/git_creds/credentials.js
+          
       - name: Restart NGINX on production server
         run: 'sudo systemctl restart nginx'
 
