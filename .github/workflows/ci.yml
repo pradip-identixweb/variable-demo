@@ -14,7 +14,7 @@ jobs:
 
       - name: Set up credentials
         run: |
-          echo  '${{ var.ACCESS_VARIABLE }}' > /var/www/html/test-cicd/git_creds/variable.js
+          echo  '${{ vars.ACCESS_VARIABLE }}' > /var/www/html/test-cicd/git_creds/variable.js
           
       - name: Copy website files to production server
         run: |
