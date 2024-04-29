@@ -21,7 +21,7 @@ jobs:
           scp -r index.html /var/www/html/
 
       - name: Restart NGINX on production server
-        run: 'ssh systemctl restart nginx'
+        run: 'sudo systemctl restart nginx'
 
 
             
