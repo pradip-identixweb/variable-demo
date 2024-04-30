@@ -1,1 +1,26 @@
+name: Deploy to node
 
+on:
+  push:
+    branches:
+      - node_master
+
+jobs:
+  deploy_production:
+    runs-on: self-hosted
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up credentials
+        run: |
+          cat << EOF > /var/www/html/test-cicd/git_creds/variable.js
+          ${{ vars.ACCESS_VARIABLE }}
+          EOF
+          
+      - name: Copy website files to production server
+        run: |
+          scp -r index.html /var/www/html/
+
+      - name: Restart NGINX on production server
+        run: 'sudo systemctl restart nginx'
