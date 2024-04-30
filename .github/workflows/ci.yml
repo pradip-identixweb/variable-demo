@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy_production:
-    runs-on: self-hosted
+    runs-on: pradip-hosted
     steps:
       - name: Check out code
         uses: actions/checkout@v2
